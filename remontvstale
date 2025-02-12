@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ремонт компьютеров, принтеров, видеонаблюдения</title>
+    <meta name="description"
+        content="Профессиональный ремонт компьютеров, принтеров и установка систем видеонаблюдения. Быстрый выезд, гарантия качества, доступные цены.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Общие стили */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f4f8;
+            color: #333;
+            line-height: 1.7;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* Навигация */
+        nav {
+            background: linear-gradient(to right, #6a82fb, #fc5c7d);
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 5px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        nav a {
+            display: inline-block;
+            color: #fff;
+            text-align: center;
+            padding: 12px 16px;
+            text-decoration: none;
+            transition: background-color 0.4s ease, color 0.4s ease, transform 0.3s ease;
+            font-weight: 400;
+            font-size: 0.9em;
+            letter-spacing: 0.3px;
+        }
+
+        nav a:hover,
+        nav a.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* Бургер-меню */
+        .menu-toggle {
+            display: none;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .menu-toggle:focus {
+            outline: none;
+        }
+
+        .menu-icon {
+            width: 24px;
+            height: 2px;
+            background-color: #fff;
+            margin: 5px 0;
+            display: block;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .menu-toggle.active .menu-icon:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle.active .menu-icon:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active .menu-icon:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Адаптивность для меню */
+        @media (max-width: 768px) {
+            nav {
+                background: linear-gradient(to right, #6a82fb, #fc5c7d);
+                display: none;
+                text-align: left;
+                padding: 0;
+            }
+
+            nav a {
+                display: block;
+                padding: 10px 14px;
+                text-align: left;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        /* Секции */
+        section {
+            padding: 60px 20px;
+            margin-top: 50px;
+            text-align: center;
+            background: #fff;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-radius: 10px;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(106, 130, 251, 0.1), rgba(252, 92, 125, 0.1));
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-size: 2.4em;
+            margin-bottom: 25px;
+            color: #6a82fb;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 500;
+            text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
+        }
+        /* стили для иконки телефона */
+        .section-with-phone h2::before {
+            content: "\1F4DE"; /* Unicode для иконки телефона */
+            margin-right: 5px;
+        }
+
+        section p {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Список брендов */
+        .brand-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .brand-list li {
+            margin: 8px 12px;
+            padding: 12px 20px;
+            background: rgba(106, 130, 251, 0.1);
+            border-radius: 25px;
+            color: #34495e;
+            font-size: 1em;
+            font-weight: 400;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .brand-list li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Подвал */
+        footer {
+            background: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Кнопки */
+        .button {
+            display: inline-block;
+            padding: 14px 28px;
+            background: linear-gradient(to right, #6a82fb, #fc5c7d);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), box-shadow 0.3s ease;
+            font-size: 1.1em;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .button.animate__animated {
+            animation-duration: 1s;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Ремонт и Обслуживание Техники",
+      "description": "Профессиональный ремонт компьютеров, принтеров и установка систем видеонаблюдения. Быстрый выезд, гарантия качества, доступные цены.",
+      "image": "URL_ВАШЕГО_ЛОГОТИПА",
+      "telephone": "+7(980)189-04-98",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "opens": "09:00",
+        "closes": "20:00"
+      },
+      "url": "URL_ВАШЕГО_САЙТА"
+    }
+    </script>
+
+    <button class="menu-toggle">
+        <span class="menu-icon"></span>
+        <span class="menu-icon"></span>
+        <span class="menu-icon"></span>
+    </button>
+
+    <nav>
+        <a href="#computer-repair" data-section="computer-repair">Ремонт компьютеров</a>
+        <a href="#printer-repair" data-section="printer-repair">Ремонт принтеров</a>
+        <a href="#video-surveillance" data-section="video-surveillance">Видеонаблюдение</a>
+        <a href="#contacts" data-section="contacts">Контакты</a>
+    </nav>
+
+    <section id="computer-repair" class="section-with-phone">
+        <h2>Ремонт компьютеров</h2>
+        <p>Нужен срочный <b>ремонт компьютера</b>? Мы предлагаем полный спектр услуг: диагностика, замена комплектующих, установка ПО, удаление вирусов, восстановление данных. Выезд мастера на дом - быстро и удобно!</p>
+        <p>Телефон: <a href="tel:+79801890498">+7(980)189-04-98</a></p>
+        <ul>
+            <li>Диагностика неисправностей</li>
+            <li>Ремонт и замена комплектующих</li>
+            <li>Установка и настройка ПО</li>
+            <li>Удаление вирусов</li>
+            <li>Восстановление данных</li>
+        </ul>
+    </section>
+
+    <section id="printer-repair" class="section-with-phone">
+        <h2>Ремонт принтеров</h2>
+        <p>Профессиональный <b>ремонт принтеров</b> любых моделей и производителей. Заправка картриджей, устранение поломок, профилактика. Оперативный выезд мастера!</p>
+        <p>Телефон: <a href="tel:+79801890498">+7(980)189-04-98</a></p>
+        <ul>
+            <li>Заправка картриджей</li>
+            <li>Ремонт механики</li>
+            <li>Устранение проблем с печатью</li>
+            <li>Настройка и калибровка</li>
+        </ul>
+    </section>
+
+    <section id="brands">
+        <h2>Бренды, с которыми мы работаем</h2>
+        <p>Мы осуществляем ремонт и обслуживание техники следующих производителей:</p>
+        <ul class="brand-list">
+            <li>HP</li>
+            <li>Canon</li>
+            <li>Epson</li>
+            <li>Brother</li>
+            <li>Samsung</li>
+            <li>Xerox</li>
+            <li>Kyocera</li>
+            <li>Ricoh</li>
+            <li>Lexmark</li>
+            <li>OKI</li>
+        </ul>
+    </section>
+
+    <section id="video-surveillance" class="section-with-phone">
+        <h2>Установка и обслуживание видеонаблюдения</h2>
+        <p>Комплексные решения для обеспечения вашей безопасности: профессиональный монтаж, настройка и обслуживание <b>систем видеонаблюдения</b>.</p>
+        <p>Телефон: <a href="tel:+79801890498">+7(980)189-04-98</a></p>
+    </section>
+
+    <section id="contacts">
+        <h2>Контакты</h2>
+        <p>Телефон: <a href="tel:+79801890498">+7(980)189-04-98</a></p>
+        <p>Telegram: <a href="https://t.me/DenisNekhoroshkov">@DenisNekhoroshkov</a></p>
+        <p>Email: <a href="mailto:d.nekhoroshkov@yandrx.ru">d.nekhoroshkov@yandrx.ru</a></p>
+    </section>
+
+    <footer>
+        &copy; 2023 Все права защищены.
+    </footer>
+
+    <script>
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+
+        function checkVisibility() {
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const windowHeight = window.innerHeight;
+                const scrollPosition = window.pageYOffset;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPosition > sectionTop - windowHeight + sectionHeight / 4) {
+                    section.classList.add('visible');
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                } else {
+                    section.classList.remove('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkVisibility);
+        checkVisibility();
+
+        menuToggle.addEventListener('click', function () {
+            nav.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                if (window.innerWidth <= 768) {
+                    nav.classList.remove('active');
+                    menuToggle.classList.remove('active');
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
